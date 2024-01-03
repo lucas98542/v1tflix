@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tflix</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #videoPlayer {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="videoPlayer" src="https://sinalpublico.com/player3/serverf3hlb.php?vid=JGSVRZSACTNGDSPSRSEDSRPNTS" frameborder="0" allowfullscreen></iframe>
+
+  <script>
+    const videoPlayer = document.getElementById('videoPlayer');
+
+    // Adiciona um evento de clique para alternar a tela cheia
+    videoPlayer.addEventListener('click', toggleFullscreen);
+
+    // Adiciona um evento para monitorar mudanças no modo de tela cheia
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    // Função para alternar o modo de tela cheia
+    function toggleFullscreen() {
+      if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen();
+      } else if (videoPlayer.mozRequestFullScreen) { // Firefox
+        videoPlayer.mozRequestFullScreen();
+      } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        videoPlayer.webkitRequestFullscreen();
+      } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
+        videoPlayer.msRequestFullscreen();
+      }
+    }
+
+    // Função para manipular mudanças no modo de tela cheia
+    function handleFullscreenChange() {
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        // O vídeo está em modo de tela cheia
+        videoPlayer.style.width = '100%';
+        videoPlayer.style.height = '100%';
+      } else {
+        // O vídeo não está mais em modo de tela cheia
+        videoPlayer.style.width = '100vw';
+        videoPlayer.style.height = '100vh';
+      }
+    }
+  </script>
+</body>
+</html>
